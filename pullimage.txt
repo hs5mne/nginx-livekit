@@ -1,0 +1,2 @@
+echo "dckr_pat_sqKKxuGYKFJr66vl6uagyzjYyd4" | docker login -u hosapprama --password-stdin
+docker pull hosapprama/rama-livekit-service:v1.0.1-uat
