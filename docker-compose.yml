@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx:alpine
+    image: nginx:mainline-alpine3.24-perl
     container_name: nginx_proxy
     restart: unless-stopped
     environment:
