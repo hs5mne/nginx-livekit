@@ -1,0 +1,36 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # อ่านแบบ Read-Only (:ro) เพื่อความปลอดภัย
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs/cert.crt:/etc/certs/cert.crt:ro
+      - ./certs/private.key:/etc/certs/private.key:ro
+      # (Optional) หากต้องการเก็บ Log ออกมาที่ Host
+      - ./logs:/var/log/nginx
+
+    # ตรวจสอบสถานะการทำงานของ Container
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider --quiet http://localhost/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+    # จำกัดขนาดไฟล์ Log ไม่ให้ดิสก์เต็ม
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # ความปลอดภัยเพิ่มเติม (ยกระดับ Security)
+    security_opt:
+      - no-new-privileges:true
