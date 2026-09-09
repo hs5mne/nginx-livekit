@@ -13,6 +13,7 @@ services:
       - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certs/cert.crt:/etc/certs/cert.crt:ro
       - ./certs/private.key:/etc/certs/private.key:ro
+      - ./proxy/.htpasswd:/etc/nginx/.htpasswd:ro
       # (Optional) หากต้องการเก็บ Log ออกมาที่ Host
       - ./logs:/var/log/nginx
       - /mnt/videodata:/mnt/videodata
