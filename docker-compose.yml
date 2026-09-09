@@ -15,6 +15,7 @@ services:
       - ./certs/private.key:/etc/certs/private.key:ro
       # (Optional) หากต้องการเก็บ Log ออกมาที่ Host
       - ./logs:/var/log/nginx
+      - /mnt/videodata:/mnt/videodata
 
     # ตรวจสอบสถานะการทำงานของ Container
     healthcheck:
